@@ -37,3 +37,5 @@ sysinfo.txt
 *.unitypackage
 /Assets/2D Village Pack Free/
 /Logs/
+/Assets/Player Pack/
+/Assets/Player Pack.meta
