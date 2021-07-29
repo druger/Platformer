@@ -7,6 +7,7 @@ public class PlayerController : MonoBehaviour {
     const float speedXMultiiplier = 50f;
 
     [SerializeField] private float speedX = 1f;
+    [SerializeField] private Animator animator;
     private Rigidbody2D rb;
     private float horizontalInput;
     private bool onGround;
@@ -20,6 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     private void Update() {
         horizontalInput = Input.GetAxis("Horizontal");
+        animator.SetFloat("speedX", Math.Abs(horizontalInput));
         if (Input.GetKey(KeyCode.W) && onGround) {
             jumping = true;
         }
