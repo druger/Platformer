@@ -3,14 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class Finish : MonoBehaviour {
-    private bool isActivated;
+    private bool _isActivated;
 
     public void Activate() {
-        isActivated = true;
+        _isActivated = true;
     }
     
     public void FinishLevel() {
-        if (isActivated) {
+        if (_isActivated) {
             gameObject.SetActive(false);
         }
     }

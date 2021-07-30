@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class LeverArm : MonoBehaviour {
 
-    private Finish finish;
+    private Finish _finish;
     void Start() {
-        finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>();
+        _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>();
     }
 
     public void Activate() {
-        finish.Activate();
+        _finish.Activate();
     }
 }

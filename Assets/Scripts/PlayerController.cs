@@ -4,88 +4,88 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    const float speedXMultiiplier = 50f;
+    const float SpeedXMultiiplier = 50f;
 
     [SerializeField] private float speedX = 1f;
     [SerializeField] private Animator animator;
 
-    private Rigidbody2D rb;
-    private Finish finish;
-    private LeverArm leverArm;
+    private Rigidbody2D _rb;
+    private Finish _finish;
+    private LeverArm _leverArm;
 
-    private float horizontalInput;
-    private bool onGround;
-    private bool jumping;
-    private bool facingRight = true;
-    private bool isFinish;
-    private bool isLeverArm;
+    private float _horizontalInput;
+    private bool _onGround;
+    private bool _jumping;
+    private bool _facingRight = true;
+    private bool _isFinish;
+    private bool _isLeverArm;
 
     // Start is called before the first frame update
     void Start() {
-        rb = GetComponent<Rigidbody2D>();
-        finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>();
-        leverArm = FindObjectOfType<LeverArm>();
+        _rb = GetComponent<Rigidbody2D>();
+        _finish = GameObject.FindGameObjectWithTag("Finish").GetComponent<Finish>();
+        _leverArm = FindObjectOfType<LeverArm>();
     }
 
     private void Update() {
-        horizontalInput = Input.GetAxis("Horizontal");
-        animator.SetFloat("speedX", Math.Abs(horizontalInput));
-        if (Input.GetKey(KeyCode.W) && onGround) {
-            jumping = true;
+        _horizontalInput = Input.GetAxis("Horizontal");
+        animator.SetFloat("speedX", Math.Abs(_horizontalInput));
+        if (Input.GetKey(KeyCode.W) && _onGround) {
+            _jumping = true;
         }
 
         if (Input.GetKeyDown(KeyCode.F)) {
-            if (isFinish) {
-                finish.FinishLevel();
+            if (_isFinish) {
+                _finish.FinishLevel();
             }
 
-            if (isLeverArm) {
-                leverArm.Activate();
+            if (_isLeverArm) {
+                _leverArm.Activate();
             }
         }
     }
 
     private void FixedUpdate() {
-        rb.velocity = new Vector2(horizontalInput * speedX * speedXMultiiplier * Time.fixedDeltaTime, rb.velocity.y);
-        if (jumping) {
-            rb.AddForce(new Vector2(0f, 300f));
-            onGround = false;
-            jumping = false;
+        _rb.velocity = new Vector2(_horizontalInput * speedX * SpeedXMultiiplier * Time.fixedDeltaTime, _rb.velocity.y);
+        if (_jumping) {
+            _rb.AddForce(new Vector2(0f, 300f));
+            _onGround = false;
+            _jumping = false;
         }
 
-        if (horizontalInput > 0 && !facingRight) {
+        if (_horizontalInput > 0 && !_facingRight) {
             Flip();
-        } else if (horizontalInput < 0 && facingRight) {
+        } else if (_horizontalInput < 0 && _facingRight) {
             Flip();
         }
     }
 
     private void OnCollisionEnter2D(Collision2D other) {
         if (other.gameObject.CompareTag("Ground")) {
-            onGround = true;
+            _onGround = true;
         }
     }
 
     private void OnTriggerEnter2D(Collider2D other) {
         var tmpLeverArm = other.GetComponent<LeverArm>();
-        if (tmpLeverArm != null) isLeverArm = true;
+        if (tmpLeverArm != null) _isLeverArm = true;
 
         if (other.gameObject.CompareTag("Finish")) {
-            isFinish = true;
+            _isFinish = true;
         }
     }
 
     private void OnTriggerExit2D(Collider2D other) {
         var tmpLeverArm = other.GetComponent<LeverArm>();
-        if (tmpLeverArm != null) isLeverArm = false;
+        if (tmpLeverArm != null) _isLeverArm = false;
 
         if (other.gameObject.CompareTag("Finish")) {
-            isFinish = false;
+            _isFinish = false;
         }
     }
 
     private void Flip() {
-        facingRight = !facingRight;
+        _facingRight = !_facingRight;
         Vector3 playerScale = transform.localScale;
         playerScale.x *= -1;
         transform.localScale = playerScale;
