@@ -8,6 +8,7 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] private float speedX = 1f;
     [SerializeField] private Animator animator;
+    [SerializeField] private Transform playerModelTransform;
 
     private Rigidbody2D _rb;
     private Finish _finish;
@@ -86,8 +87,8 @@ public class PlayerController : MonoBehaviour {
 
     private void Flip() {
         _facingRight = !_facingRight;
-        Vector3 playerScale = transform.localScale;
+        Vector3 playerScale = playerModelTransform.localScale;
         playerScale.x *= -1;
-        transform.localScale = playerScale;
+        playerModelTransform.localScale = playerScale;
     }
 }
