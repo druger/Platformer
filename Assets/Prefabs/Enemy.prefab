@@ -1965,6 +1965,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   totalHealth: 100
   healthSlider: {fileID: 4592686950788481529}
+  animator: {fileID: 5473625688181129603}
 --- !u!114 &8792284462758470271
 MonoBehaviour:
   m_ObjectHideFlags: 0
