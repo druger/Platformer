@@ -17,6 +17,7 @@ public class EnemyController : MonoBehaviour {
     private Rigidbody2D _rb;
     private Vector2 _leftBoundary;
     private Vector2 _rightBoundary;
+    private PlayerHealth _playerHealth;
     private Transform _playerPosition;
     private Vector2 _nextPoint;
 
@@ -36,7 +37,9 @@ public class EnemyController : MonoBehaviour {
     }
 
     void Start() {
-        _playerPosition = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        var player = GameObject.FindGameObjectWithTag("Player");
+        _playerPosition = player.GetComponent<Transform>();
+        _playerHealth = player.GetComponent<PlayerHealth>();
         _rb = GetComponent<Rigidbody2D>();
         _leftBoundary = transform.position;
         _rightBoundary = _leftBoundary + Vector2.right * walkDistance;
@@ -87,7 +90,7 @@ public class EnemyController : MonoBehaviour {
     }
 
     private float DistanceToPlayer() {
-        return _playerPosition.position.x - transform.position.x;
+        return  !_playerHealth.IsDead() ?_playerPosition.position.x - transform.position.x : 0f;
     }
 
     private void Patrol() {

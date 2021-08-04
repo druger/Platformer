@@ -8,6 +8,7 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField] private int totalHealth = 100;
     [SerializeField] private Animator _animator;
     [SerializeField] private Slider healthSlider;
+    [SerializeField] private GameObject gameOverCanvas;
 
     private int _health;
 
@@ -30,6 +31,11 @@ public class PlayerHealth : MonoBehaviour {
     private void Die() {
         // TODO setup animation
         // _animator.SetTrigger("die");
+        gameOverCanvas.SetActive(true);
         Destroy(gameObject);
+    }
+
+    public bool IsDead() {
+        return _health <= 0;
     }
 }
