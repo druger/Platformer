@@ -9,6 +9,7 @@ public class PlayerHealth : MonoBehaviour {
     [SerializeField] private Animator _animator;
     [SerializeField] private Slider healthSlider;
     [SerializeField] private GameObject gameOverCanvas;
+    [SerializeField] private AudioSource hurtSound;
 
     private int _health;
 
@@ -21,6 +22,7 @@ public class PlayerHealth : MonoBehaviour {
         _health -= damage;
         InitHealth();
         _animator.SetTrigger("takeDamage");
+        hurtSound.Play();
         if (_health <= 0) Die();
     }
 

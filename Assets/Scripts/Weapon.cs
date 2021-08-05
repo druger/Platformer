@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class Weapon : MonoBehaviour {
     [SerializeField] private int damage = 20;
+    [SerializeField] private AudioSource hitSound;
 
     private AttackController _attackController;
     
@@ -16,6 +17,7 @@ public class Weapon : MonoBehaviour {
         var enemyHealth = other.GetComponent<EnemyHealth>();
         if (enemyHealth != null && _attackController.IsAttack) {
             enemyHealth.ReduceHealth(damage);
+            hitSound.Play();
         }
     }
 }
