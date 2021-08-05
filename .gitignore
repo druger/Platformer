@@ -36,9 +36,12 @@ sysinfo.txt
 *.apk
 *.unitypackage
 /Assets/2D Village Pack Free/
+Assets/2D Village Pack Free.meta
 /Logs/
 /Assets/Player Pack/
 /Assets/Player Pack.meta
 /.idea/
 /Assets/Fantasy Wooden GUI  Free/
 Assets/Fantasy Wooden GUI  Free.meta
+/Assets/TextMesh Pro/
+Assets/TextMesh Pro.meta
