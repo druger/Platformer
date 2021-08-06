@@ -4,7 +4,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour {
-    const float SpeedXMultiiplier = 50f;
+    private const float SpeedXMultiiplier = 50f;
+    private const float JumpYForce = 400f;
 
     [SerializeField] private float speedX = 1f;
     [SerializeField] private Animator animator;
@@ -32,7 +33,8 @@ public class PlayerController : MonoBehaviour {
     private void Update() {
         _horizontalInput = Input.GetAxis("Horizontal");
         animator.SetFloat("speedX", Math.Abs(_horizontalInput));
-        if (Input.GetKey(KeyCode.W) && _onGround) {
+        
+        if (Input.GetKeyDown(KeyCode.W) && _onGround) {
             _jumping = true;
             jumpSound.Play();
         }
@@ -51,7 +53,7 @@ public class PlayerController : MonoBehaviour {
     private void FixedUpdate() {
         _rb.velocity = new Vector2(_horizontalInput * speedX * SpeedXMultiiplier * Time.fixedDeltaTime, _rb.velocity.y);
         if (_jumping) {
-            _rb.AddForce(new Vector2(0f, 300f));
+            _rb.AddForce(new Vector2(0f, JumpYForce));
             _onGround = false;
             _jumping = false;
         }
